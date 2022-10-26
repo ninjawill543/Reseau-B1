@@ -157,7 +157,6 @@ Connectez-vous en SSH à votre VM.
 🌞 **Examinez le trafic dans Wireshark**
 
 - **déterminez si SSH utilise TCP ou UDP**
-[handshake](./3-way-handshake.pcapng)
 ### 3-way-handshake.pcapng
   - pareil réfléchissez-y deux minutes, logique qu'on utilise pas UDP non ?
 
