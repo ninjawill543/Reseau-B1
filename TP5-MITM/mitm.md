@@ -5,6 +5,8 @@ Please clone this link: https://github.com/ninjawill543/reseau.git
 
 Once you have used the cd command to move to reseau/TP5-MITM/Scripts, please follow the next steps.
 
+The id.txt file is simply used to move data from the mitm script to the dnspoison script, and so it is essential that it is kept in the same folder as the two python files.
+
 ## MITM:
 To launch the mitm.py script, simply run
 ```
